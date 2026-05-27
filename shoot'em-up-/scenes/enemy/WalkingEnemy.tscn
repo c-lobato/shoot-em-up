@@ -7,9 +7,12 @@
 size = Vector2(46, 47)
 
 [node name="WalkingEnemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_exij2")
 Speed = 100
 Health = 1
+Points = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -0.5)

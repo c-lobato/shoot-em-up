@@ -4,7 +4,6 @@ using System.Numerics;
 
 public partial class WalkingEnemy : Enemy
 {
-    public override void SpawnMethod(){}
     public override void PhysicsUpdate()
     {
        //movimentação em X

@@ -7,7 +7,6 @@ public partial class ShootingEnemy : Enemy
     [Export] public Timer ShootingCooldown;
     [Export] public float Frequency = 5.0f; 
     [Export] public float Amplitude = 300.0f; 
-    public override void SpawnMethod(){}
     public override void PhysicsUpdate()
     {
        _timePassed += (float)GetProcessDeltaTime();
