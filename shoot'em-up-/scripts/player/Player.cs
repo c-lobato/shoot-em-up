@@ -4,7 +4,7 @@ using System.Reflection.Metadata;
 
 public partial class Player : CharacterBody2D
 {
-    [Export] public int Speed = 400;
+    [Export] public int Speed = 350;
     [Export] public int Health = 5;
     [Export] public PackedScene projectile;
 

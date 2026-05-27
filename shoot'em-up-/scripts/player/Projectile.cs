@@ -8,7 +8,5 @@ public partial class Projectile : Area2D
     {
         GlobalPosition += Vector2.Right * Speed * (float)delta;
     }
-    
-
 
 }

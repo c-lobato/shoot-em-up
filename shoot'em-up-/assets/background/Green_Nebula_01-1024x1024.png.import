@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dx145wqxdaacc"
-path="res://.godot/imported/Purple_Nebula_05-1024x1024.png-09a81615f63f64374d3a465860e33eb1.ctex"
+uid="uid://xd63a7f4tuep"
+path="res://.godot/imported/Green_Nebula_01-1024x1024.png-86741827b53ff6c5d818e00ede8a3128.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/background/SBS - Seamless Space Backgrounds - Large 1024x1024/Large 1024x1024/Purple Nebula/Purple_Nebula_05-1024x1024.png"
-dest_files=["res://.godot/imported/Purple_Nebula_05-1024x1024.png-09a81615f63f64374d3a465860e33eb1.ctex"]
+source_file="res://assets/background/Green_Nebula_01-1024x1024.png"
+dest_files=["res://.godot/imported/Green_Nebula_01-1024x1024.png-86741827b53ff6c5d818e00ede8a3128.ctex"]
 
 [params]
 

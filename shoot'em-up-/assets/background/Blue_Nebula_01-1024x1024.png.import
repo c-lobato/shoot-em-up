@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdebepabicj3p"
-path="res://.godot/imported/Starfield_04-1024x1024.png-fef130b06f7f864ca668b2225611d482.ctex"
+uid="uid://btj31s6bwr4dt"
+path="res://.godot/imported/Blue_Nebula_01-1024x1024.png-82a966fba1978f343e872d9c5b09b8e1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/background/SBS - Seamless Space Backgrounds - Large 1024x1024/Large 1024x1024/Starfields/Starfield_04-1024x1024.png"
-dest_files=["res://.godot/imported/Starfield_04-1024x1024.png-fef130b06f7f864ca668b2225611d482.ctex"]
+source_file="res://assets/background/Blue_Nebula_01-1024x1024.png"
+dest_files=["res://.godot/imported/Blue_Nebula_01-1024x1024.png-82a966fba1978f343e872d9c5b09b8e1.ctex"]
 
 [params]
 
