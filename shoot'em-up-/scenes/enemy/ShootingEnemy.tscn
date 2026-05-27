@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://by2aw2mv086g6"]
+
+[ext_resource type="Texture2D" uid="uid://ccwqutoue7e53" path="res://assets/sprites/enemys/green.png" id="1_1paoo"]
+[ext_resource type="Script" uid="uid://d3v38yp5hp8wq" path="res://scripts/enemy/ShootingEnemy.cs" id="1_tbobv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbobv"]
+size = Vector2(52, 61)
+
+[node name="ShootingEnemy" type="CharacterBody2D" node_paths=PackedStringArray("ShootingCooldown")]
+script = ExtResource("1_tbobv")
+ShootingCooldown = NodePath("ShootCooldown")
+Speed = 30
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_tbobv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5707964
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_1paoo")
+
+[node name="ShootCooldown" type="Timer" parent="."]

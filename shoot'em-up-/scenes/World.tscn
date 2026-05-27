@@ -1,21 +1,74 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpvkolo7kiqp2"]
+[gd_scene load_steps=10 format=3 uid="uid://dpvkolo7kiqp2"]
 
 [ext_resource type="Texture2D" uid="uid://btj31s6bwr4dt" path="res://assets/background/Blue_Nebula_01-1024x1024.png" id="1_7g83o"]
-[ext_resource type="PackedScene" uid="uid://cjtgennn0bvnn" path="res://scenes/Player.tscn" id="1_kqs1s"]
-[ext_resource type="PackedScene" uid="uid://cbwbxuukyig5l" path="res://scenes/projectile.tscn" id="3_7g83o"]
+[ext_resource type="PackedScene" uid="uid://cjtgennn0bvnn" path="res://scenes/player/Player.tscn" id="1_kqs1s"]
+[ext_resource type="PackedScene" uid="uid://cbwbxuukyig5l" path="res://scenes/player/projectile.tscn" id="3_7g83o"]
+[ext_resource type="PackedScene" uid="uid://c41o100208mx4" path="res://scenes/enemy/WalkingEnemy.tscn" id="4_d1c63"]
+[ext_resource type="PackedScene" uid="uid://by2aw2mv086g6" path="res://scenes/enemy/ShootingEnemy.tscn" id="5_1lgw5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1lgw5"]
+size = Vector2(79, 682)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hlk0d"]
+size = Vector2(1176, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0uv0p"]
+size = Vector2(46, 656.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3faq"]
+size = Vector2(1172.5, 63)
 
 [node name="World" type="Node2D"]
-position = Vector2(101, 317)
+position = Vector2(-1, 1)
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_offset = Vector2(2184, 1251)
 repeat_size = Vector2(1024, 0)
-autoscroll = Vector2(-100, 0)
+autoscroll = Vector2(-24, 0)
 repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
-position = Vector2(367, 3)
+position = Vector2(1377, -905)
 texture = ExtResource("1_7g83o")
-metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_kqs1s")]
+position = Vector2(201, 331)
 projectile = ExtResource("3_7g83o")
+
+[node name="WalkingEnemy" parent="." instance=ExtResource("4_d1c63")]
+position = Vector2(740, 210)
+
+[node name="ShootingEnemy" parent="." instance=ExtResource("5_1lgw5")]
+position = Vector2(1056, 406)
+
+[node name="ShootingEnemy2" parent="." instance=ExtResource("5_1lgw5")]
+position = Vector2(985, 265)
+
+[node name="ShootingEnemy3" parent="." instance=ExtResource("5_1lgw5")]
+position = Vector2(930, 516)
+
+[node name="Collisions" type="Node" parent="."]
+
+[node name="Area2D" type="StaticBody2D" parent="Collisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Area2D"]
+position = Vector2(-40, 342)
+shape = SubResource("RectangleShape2D_1lgw5")
+
+[node name="Area2D2" type="StaticBody2D" parent="Collisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Area2D2"]
+position = Vector2(585, -11)
+shape = SubResource("RectangleShape2D_hlk0d")
+
+[node name="Area2D3" type="StaticBody2D" parent="Collisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Area2D3"]
+position = Vector2(1176, 319.75)
+shape = SubResource("RectangleShape2D_0uv0p")
+
+[node name="Area2D4" type="StaticBody2D" parent="Collisions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Area2D4"]
+position = Vector2(578, 681)
+shape = SubResource("RectangleShape2D_b3faq")

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c41o100208mx4"]
+
+[ext_resource type="Script" uid="uid://wuop3ooxd3n3" path="res://scripts/enemy/WalkingEnemy.cs" id="1_exij2"]
+[ext_resource type="Texture2D" uid="uid://cmxhrknnrve3f" path="res://assets/sprites/enemys/brown.png" id="2_wfu3o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wfu3o"]
+size = Vector2(46, 47)
+
+[node name="WalkingEnemy" type="CharacterBody2D"]
+script = ExtResource("1_exij2")
+Speed = 100
+Health = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_wfu3o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = -1.5707964
+scale = Vector2(3, 3)
+texture = ExtResource("2_wfu3o")
