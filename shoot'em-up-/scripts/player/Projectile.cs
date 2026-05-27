@@ -9,4 +9,13 @@ public partial class Projectile : Area2D
         GlobalPosition += Vector2.Right * Speed * (float)delta;
     }
 
+    public void OnProjectileHitEnemy(Node2D body)
+    {
+        if(body is Enemy enemy)
+        {   
+            enemy.TakeDamage();
+            QueueFree();
+        }
+    }
+
 }

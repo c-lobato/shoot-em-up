@@ -1,16 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjtgennn0bvnn"]
+[gd_scene load_steps=6 format=3 uid="uid://cjtgennn0bvnn"]
 
 [ext_resource type="Script" uid="uid://dc1iudyfblcxk" path="res://scripts/player/Player.cs" id="1_p0vlq"]
+[ext_resource type="PackedScene" uid="uid://cbwbxuukyig5l" path="res://scenes/player/projectile.tscn" id="2_4kuee"]
 [ext_resource type="Texture2D" uid="uid://dka2v436gft38" path="res://assets/sprites/player/player.png" id="2_v6fml"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5q5h1"]
 size = Vector2(14.555555, 16.333334)
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gfjak"]
+size = Vector2(28.5, 32)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "Hitbox", "iFrameTimer")]
 scale = Vector2(2, 2)
-collision_mask = 6
+collision_mask = 2
 script = ExtResource("1_p0vlq")
+Speed = 300
 Health = 3
+projectile = ExtResource("2_4kuee")
+Sprite = NodePath("Sprite2D")
+Hitbox = NodePath("Hitbox")
+iFrameTimer = NodePath("iFrameTimer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5000005, -0.16666524)
@@ -23,3 +32,13 @@ position = Vector2(-4.7683716e-07, -4.7683716e-07)
 rotation = 1.5707964
 scale = Vector2(2, 2)
 texture = ExtResource("2_v6fml")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-0.25, 0)
+shape = SubResource("RectangleShape2D_gfjak")
+
+[node name="iFrameTimer" type="Timer" parent="."]
+wait_time = 2.0

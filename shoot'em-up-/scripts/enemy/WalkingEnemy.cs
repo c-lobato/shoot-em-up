@@ -10,7 +10,8 @@ public partial class WalkingEnemy : Enemy
        Velocity = new Godot.Vector2(-Speed,0); 
        MoveAndSlide();
     }
-    public override void Die(){}
+
+    
     public override void Attack(){}
 
 }
