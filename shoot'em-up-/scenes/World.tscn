@@ -1,7 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpvkolo7kiqp2"]
+[gd_scene load_steps=4 format=3 uid="uid://dpvkolo7kiqp2"]
 
+[ext_resource type="Texture2D" uid="uid://btj31s6bwr4dt" path="res://assets/background/SBS - Seamless Space Backgrounds - Large 1024x1024/Large 1024x1024/Blue Nebula/Blue_Nebula_01-1024x1024.png" id="1_32lhk"]
 [ext_resource type="PackedScene" uid="uid://cjtgennn0bvnn" path="res://scenes/Player.tscn" id="1_kqs1s"]
+[ext_resource type="PackedScene" uid="uid://cbwbxuukyig5l" path="res://scenes/projectile.tscn" id="3_7g83o"]
 
 [node name="World" type="Node2D"]
+position = Vector2(101, 317)
+
+[node name="Background" type="Node2D" parent="."]
+scale = Vector2(0.75, 0.75)
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+offset_left = -138.66667
+offset_top = -445.33334
+offset_right = 3241.3333
+offset_bottom = 768.0
+texture = ExtResource("1_32lhk")
+stretch_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("1_kqs1s")]
+projectile = ExtResource("3_7g83o")
