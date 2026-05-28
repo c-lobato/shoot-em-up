@@ -1,0 +1,79 @@
+[gd_scene load_steps=11 format=3 uid="uid://dpvkolo7kiqp2"]
+
+[ext_resource type="Script" uid="uid://c26dsmuyagc60" path="res://scripts/game/GameController.cs" id="1_hlk0d"]
+[ext_resource type="PackedScene" uid="uid://cjtgennn0bvnn" path="res://scenes/player/Player.tscn" id="1_kqs1s"]
+[ext_resource type="PackedScene" uid="uid://c41o100208mx4" path="res://scenes/enemy/WalkingEnemy.tscn" id="4_d1c63"]
+[ext_resource type="PackedScene" uid="uid://by2aw2mv086g6" path="res://scenes/enemy/ShootingEnemy.tscn" id="5_1lgw5"]
+[ext_resource type="AudioStream" uid="uid://itybbvcr7nvx" path="res://assets/sounds/Star Militia.mp3" id="6_hlk0d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1lgw5"]
+size = Vector2(79, 682)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hlk0d"]
+size = Vector2(1176, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0uv0p"]
+size = Vector2(46, 656.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3faq"]
+size = Vector2(1172.5, 63)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1lgw5"]
+font_size = 25
+
+[node name="World" type="Node2D" node_paths=PackedStringArray("PlayerLabel", "player", "Audio")]
+position = Vector2(-1, 1)
+script = ExtResource("1_hlk0d")
+WalkingEnemy = ExtResource("4_d1c63")
+ShootingEnemy = ExtResource("5_1lgw5")
+PlayerLabel = NodePath("HudLabel")
+player = NodePath("Player")
+Audio = NodePath("AudioStreamPlayer2D")
+
+[node name="Player" parent="." instance=ExtResource("1_kqs1s")]
+position = Vector2(150, 324)
+
+[node name="Collisions" type="Node" parent="."]
+
+[node name="Area2D" type="StaticBody2D" parent="Collisions"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Area2D"]
+position = Vector2(-40, 342)
+shape = SubResource("RectangleShape2D_1lgw5")
+
+[node name="Area2D2" type="StaticBody2D" parent="Collisions"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Area2D2"]
+position = Vector2(585, -11)
+shape = SubResource("RectangleShape2D_hlk0d")
+
+[node name="Area2D3" type="StaticBody2D" parent="Collisions"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Area2D3"]
+position = Vector2(1176, 319.75)
+shape = SubResource("RectangleShape2D_0uv0p")
+
+[node name="Area2D4" type="StaticBody2D" parent="Collisions"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Area2D4"]
+position = Vector2(578, 681)
+shape = SubResource("RectangleShape2D_b3faq")
+
+[node name="HudLabel" type="Label" parent="."]
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 223.0
+offset_bottom = 65.0
+label_settings = SubResource("LabelSettings_1lgw5")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_hlk0d")
+volume_db = 1.0

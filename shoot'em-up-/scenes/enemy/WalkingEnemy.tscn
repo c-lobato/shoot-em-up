@@ -1,0 +1,79 @@
+[gd_scene load_steps=14 format=3 uid="uid://c41o100208mx4"]
+
+[ext_resource type="Script" uid="uid://wuop3ooxd3n3" path="res://scripts/enemy/WalkingEnemy.cs" id="1_exij2"]
+[ext_resource type="Texture2D" uid="uid://cmxhrknnrve3f" path="res://assets/sprites/enemys/brown.png" id="2_wfu3o"]
+[ext_resource type="Texture2D" uid="uid://bxdwcy564fucl" path="res://assets/sprites/enemys/explosion/explosion-f1.png" id="3_ckboi"]
+[ext_resource type="Texture2D" uid="uid://d08w27vtbkbu7" path="res://assets/sprites/enemys/explosion/explosion-f2.png" id="4_c1ygq"]
+[ext_resource type="Texture2D" uid="uid://d16lyknrf4r8" path="res://assets/sprites/enemys/explosion/explosion-f3.png" id="5_5wojo"]
+[ext_resource type="Texture2D" uid="uid://c3epupft4g2md" path="res://assets/sprites/enemys/explosion/explosion-f4.png" id="5_dbicl"]
+[ext_resource type="Texture2D" uid="uid://bmbbkyybuyv7q" path="res://assets/sprites/enemys/explosion/explosion-f5.png" id="6_5wojo"]
+[ext_resource type="Texture2D" uid="uid://cbq2j1wl3kng8" path="res://assets/sprites/enemys/explosion/explosion-f6.png" id="7_2top6"]
+[ext_resource type="Texture2D" uid="uid://dvqnrtwu0c71h" path="res://assets/sprites/enemys/explosion/explosion-f7.png" id="8_87ar2"]
+[ext_resource type="Texture2D" uid="uid://dlrxarepddgvu" path="res://assets/sprites/enemys/explosion/explosion-f8.png" id="9_5ypnl"]
+[ext_resource type="AudioStream" uid="uid://box2r501oqf0b" path="res://assets/sounds/8-bit-kit-explosion-3_G_minor.wav" id="11_5wojo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wfu3o"]
+size = Vector2(46, 47)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2top6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ckboi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_c1ygq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_5wojo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dbicl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5wojo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2top6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_87ar2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5ypnl")
+}],
+"loop": false,
+"name": &"death",
+"speed": 16.0
+}]
+
+[node name="WalkingEnemy" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "Hitbox", "Explosion", "Audio") groups=["enemys"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_exij2")
+Speed = 150
+Health = 1
+Points = 100
+Sprite = NodePath("Sprite2D")
+Hitbox = NodePath("CollisionShape2D")
+Explosion = NodePath("Explosao")
+Audio = NodePath("AudioStreamPlayer2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_wfu3o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = -1.5707964
+scale = Vector2(3, 3)
+texture = ExtResource("2_wfu3o")
+
+[node name="Explosao" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_2top6")
+animation = &"death"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_5wojo")
+volume_db = -5.0

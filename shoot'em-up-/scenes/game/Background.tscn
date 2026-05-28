@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3id4xki4s8n0"]
+
+[ext_resource type="Texture2D" uid="uid://btj31s6bwr4dt" path="res://assets/background/Blue_Nebula_01-1024x1024.png" id="1_274mx"]
+
+[node name="Parallax2D" type="Parallax2D"]
+repeat_size = Vector2(1024, 0)
+autoscroll = Vector2(-24, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(348, 343)
+texture = ExtResource("1_274mx")
