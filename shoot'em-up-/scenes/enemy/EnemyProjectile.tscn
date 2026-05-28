@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://cefae8icx0csw"]
+
+[ext_resource type="Texture2D" uid="uid://cm376sy1uhjxr" path="res://assets/sprites/enemys/projectile/pulse1.png" id="1_b8v74"]
+[ext_resource type="Script" uid="uid://buqtt42n83edu" path="res://scripts/enemy/EnemyProjectile.cs" id="1_c7shd"]
+[ext_resource type="Texture2D" uid="uid://ge6u126tqxfo" path="res://assets/sprites/enemys/projectile/pulse2.png" id="2_c7shd"]
+[ext_resource type="Texture2D" uid="uid://6xxnllmgoa6c" path="res://assets/sprites/enemys/projectile/pulse3.png" id="3_bg4ap"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rvm7w"]
+
+[sub_resource type="Animation" id="Animation_rvm7w"]
+resource_name = "enemy_projectile"
+length = 0.75
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_b8v74"), ExtResource("2_c7shd"), ExtResource("3_bg4ap"), ExtResource("3_bg4ap")]
+}
+
+[sub_resource type="Animation" id="Animation_tq6wr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_b8v74")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_avmsn"]
+_data = {
+&"RESET": SubResource("Animation_tq6wr"),
+&"enemy_projectile": SubResource("Animation_rvm7w")
+}
+
+[node name="EnemyProjectile" type="Area2D"]
+script = ExtResource("1_c7shd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rvm7w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = -3.1415927
+texture = ExtResource("1_b8v74")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_avmsn")
+}

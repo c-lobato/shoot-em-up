@@ -58,6 +58,8 @@ public partial class GameController : Node
                 newSpawnTime = 0.5f;
             }
 
+            //ShootingEnemy.Speed
+
             _spawnTimer.WaitTime = newSpawnTime;
 
             //velocidade do parallax global
@@ -90,9 +92,6 @@ public partial class GameController : Node
 
         // sorteia um número de 0 a 2 para decidir o padrão da rodada
         int padraoSorteado = GD.RandRange(0, 1);
-
-        
-        
 
         //inimigo padrão
         if (padraoSorteado == 0)

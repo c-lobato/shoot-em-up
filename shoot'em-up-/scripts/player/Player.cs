@@ -46,10 +46,15 @@ public partial class Player : CharacterBody2D
             isInvincible = true;
             iFrameTimer.Start();
 
-            Health -= 1;
+            TakeDamage();
 
             ((Enemy)body).Die();
         }
+    }
+
+    public void TakeDamage()
+    {
+        Health -=1;
     }
 
     public void HandleMovement()

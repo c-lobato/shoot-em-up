@@ -40,32 +40,32 @@ public abstract partial class Enemy : CharacterBody2D
 
     public abstract void PhysicsUpdate();
    public virtual void Die()
-{
-    Speed = 0;
-    if (isDead) return;
-    isDead = true;  
-
-    //sinal para creditar os pontos pós morte
-    EmitSignal(SignalName.OnDestroyedEnemy, Points);
-
-    if (Hitbox != null) Hitbox.SetDeferred("disabled", true);
-    
-    Sprite.Visible = false;
-
-    if (Explosion != null)
     {
-        Audio.Play();
-        Explosion.Visible = true;
-        Explosion.Play("death"); 
-        Explosion.AnimationFinished += () => 
+        Speed = 0;
+        if (isDead) return;
+        isDead = true;  
+
+        //sinal para creditar os pontos pós morte
+        EmitSignal(SignalName.OnDestroyedEnemy, Points);
+
+        if (Hitbox != null) Hitbox.SetDeferred("disabled", true);
+        
+        Sprite.Visible = false;
+
+        if (Explosion != null)
+        {
+            Audio.Play();
+            Explosion.Visible = true;
+            Explosion.Play("death"); 
+            Explosion.AnimationFinished += () => 
+            {
+                QueueFree();
+            };
+        }
+        else
         {
             QueueFree();
-        };
-    }
-    else
-    {
-        QueueFree();
-    }
+        }
 }
     public abstract void Attack();
 
