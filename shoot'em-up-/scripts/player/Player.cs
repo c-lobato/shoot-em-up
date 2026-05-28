@@ -11,6 +11,7 @@ public partial class Player : CharacterBody2D
     [Export] public Area2D Hitbox;
     [Export] public Timer iFrameTimer;
     [Export] public AnimatedSprite2D Anim;
+    [Export] public AudioStreamPlayer2D Audio;
     [Signal] public delegate void OnPlayerDiedEventHandler();
 
     private bool isDead = false;
@@ -22,6 +23,7 @@ public partial class Player : CharacterBody2D
         Hitbox.BodyEntered += OnHitboxBodyEntered;
         iFrameTimer.OneShot = true;
         iFrameTimer.Timeout += () => { isInvincible = false; Sprite.Visible = true; };
+        Anim.Visible = false;
     }
 
 
@@ -81,9 +83,11 @@ public partial class Player : CharacterBody2D
         //toca a animação
        if(Anim != null)
         {
-            Anim.Frame = 0;
+            Anim.Visible = true;
             Anim.Play("death");
         }
+
+        Audio.Play();
 
        //sinal de morte
        EmitSignal(SignalName.OnPlayerDied);

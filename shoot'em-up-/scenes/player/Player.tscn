@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cjtgennn0bvnn"]
+[gd_scene load_steps=16 format=3 uid="uid://cjtgennn0bvnn"]
 
 [ext_resource type="Script" uid="uid://dc1iudyfblcxk" path="res://scripts/player/Player.cs" id="1_p0vlq"]
 [ext_resource type="PackedScene" uid="uid://cbwbxuukyig5l" path="res://scenes/player/projectile.tscn" id="2_4kuee"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cbq2j1wl3kng8" path="res://assets/sprites/enemys/explosion/explosion-f6.png" id="9_8qjgm"]
 [ext_resource type="Texture2D" uid="uid://dvqnrtwu0c71h" path="res://assets/sprites/enemys/explosion/explosion-f7.png" id="10_ejd4k"]
 [ext_resource type="Texture2D" uid="uid://dlrxarepddgvu" path="res://assets/sprites/enemys/explosion/explosion-f8.png" id="11_2xrq6"]
+[ext_resource type="AudioStream" uid="uid://box2r501oqf0b" path="res://assets/sounds/8-bit-kit-explosion-3_G_minor.wav" id="12_180ig"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5q5h1"]
 size = Vector2(14.555555, 16.333334)
@@ -47,10 +48,10 @@ animations = [{
 }],
 "loop": false,
 "name": &"death",
-"speed": 8.0
+"speed": 7.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "Hitbox", "iFrameTimer", "Anim")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "Hitbox", "iFrameTimer", "Anim", "Audio")]
 process_mode = 3
 scale = Vector2(2, 2)
 collision_mask = 2
@@ -63,6 +64,7 @@ Sprite = NodePath("Sprite2D")
 Hitbox = NodePath("Hitbox")
 iFrameTimer = NodePath("iFrameTimer")
 Anim = NodePath("Explosao")
+Audio = NodePath("AudioStreamPlayer2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5000005, -0.16666524)
@@ -88,7 +90,11 @@ wait_time = 2.0
 
 [node name="Explosao" type="AnimatedSprite2D" parent="."]
 process_mode = 3
-visible = false
 sprite_frames = SubResource("SpriteFrames_pi3ps")
 animation = &"death"
-autoplay = "death"
+frame = 7
+frame_progress = 1.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_180ig")
+volume_db = -15.0

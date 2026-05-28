@@ -92,15 +92,18 @@ public partial class GameController : Node
         //para a musica
         Audio.Stop();
         _spawnTimer.Stop();
-        //pausa o jogo
-        GetTree().Paused = true;
-
+        
+        //desativação da física do grupo "enemys" que contem os inimigos e seu projétil
+        var enemys = GetTree().GetNodesInGroup("enemys");
+        foreach (Node enemy in enemys){
+            enemy.ProcessMode = ProcessModeEnum.Disabled;
+        }
+        
         //timer de espera da animação do jogador e chamada da tela de game over (estilo mario)
         var delayTimer = GetTree().CreateTimer(1.5f,true,true);
         delayTimer.Timeout += () =>
         {
             GD.Print("explosao acabou, chamando a tela game over");
-            GetTree().Paused = false;
             GetTree().ChangeSceneToFile("res://scenes/game/GameOverScreen.tscn");
         };
         
