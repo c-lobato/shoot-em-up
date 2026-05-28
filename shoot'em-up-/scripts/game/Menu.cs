@@ -22,7 +22,7 @@ public partial class Menu : Control
         Parallax2D background = GetTree().Root.GetNode<Parallax2D>("Background");
         if (background != null)
         {
-            background.Autoscroll = new Godot.Vector2(-24f, 0f); // Velocidade mais calma para o menu
+            background.Autoscroll = new Godot.Vector2(-24f, 0f); //velocidade padrão do menu
         }
     }
 
