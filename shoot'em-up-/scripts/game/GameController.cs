@@ -10,7 +10,6 @@ public partial class GameController : Node
     [Export] public Label PlayerLabel;
     [Export] public Player player;
     [Export] public AudioStreamPlayer2D Audio;
-    [Export] public Parallax2D Background;
 
     private Timer _spawnTimer;
     public int Score = 0;
@@ -29,7 +28,14 @@ public partial class GameController : Node
         _spawnTimer.Timeout += OnSpawnTimerTimeout;
         _spawnTimer.Start();
         Audio.Play();
-    }
+        
+        //reset de velocidade do parallax 
+        Parallax2D background = GetTree().Root.GetNode<Parallax2D>("Background");
+        if (background != null)
+        {
+            background.Autoscroll = new Godot.Vector2(-24f, 0f); // Velocidade mais calma para o menu
+        }
+    }    
 
     //o timer obedece a passagem de 1 min para alterar sua duração
     public override void _PhysicsProcess(double delta)
@@ -54,10 +60,14 @@ public partial class GameController : Node
 
             _spawnTimer.WaitTime = newSpawnTime;
 
-            //velocidade do parallax
-            Godot.Vector2 bgVelocity = Background.Autoscroll;
-            bgVelocity.X -= 30;
-            Background.Autoscroll = bgVelocity;
+            //velocidade do parallax global
+            Parallax2D background = GetTree().Root.GetNode<Parallax2D>("Background");
+            if(background != null)
+            {
+                //adiciona 30frames na contagem, pra uma sensação de aumento de velocidade
+                float velX = background.Autoscroll.X - 30f;
+                background.Autoscroll = new Godot.Vector2(velX, background.Autoscroll.Y);
+            }
 
             GD.Print($"novo timer: {_spawnTimer}");
         }
