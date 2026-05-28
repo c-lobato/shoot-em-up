@@ -16,6 +16,7 @@ public partial class GameController : Node
     private float _screenHeight = 648.0f;
     private float timePassed = 0f;
     private float currentMin = 0f;
+    private float currentSeg = 0f;
     private bool bossSpawn = false;
     
     public override void _Ready()
@@ -39,18 +40,18 @@ public partial class GameController : Node
         }
     }    
 
-    //o timer obedece a passagem de 1 min para alterar sua duração
+    //o timer obedece a passagem de 1 currentMin para alterar sua duração
     public override void _PhysicsProcess(double delta)
     {
         timePassed+=(float)delta;
 
         //tempo para label da hud
-        int min = Mathf.FloorToInt(timePassed / 60f);
-        int seg = Mathf.FloorToInt(timePassed % 60f);
+        currentMin = Mathf.FloorToInt(timePassed / 60f);
+        currentSeg = Mathf.FloorToInt(timePassed % 60f);
 
         int currentCicle = Mathf.FloorToInt(timePassed / 30f);
         
-        //Se mudou de ciclo e ainda não chegou no Boss (menos de 6 ciclos = 3 min)       
+        //Se mudou de ciclo e ainda não chegou no Boss (menos de 6 ciclos = 3 currentMin)       
         if (currentCicle > currentMin && currentCicle < 6)
         {
             currentMin = currentCicle;
@@ -83,7 +84,7 @@ public partial class GameController : Node
             //SpawnBoss();
         }
 
-        PlayerLabel.Text = $"HP: {player.Health}\nTime: {min:D2}:{seg:D2}\nScore: {Score}\nSpawn Time:{_spawnTimer.WaitTime}";  
+        PlayerLabel.Text = $"HP: {player.Health}\nTime: {currentMin:D2}:{currentSeg:D2}\nScore: {Score}\nSpawn Time:{_spawnTimer.WaitTime}";  
     }
 
 
@@ -105,9 +106,15 @@ public partial class GameController : Node
         {
             GD.Print("explosao acabou, chamando a tela game over");
             GetTree().ChangeSceneToFile("res://scenes/game/GameOverScreen.tscn");
-        };
-        
-        
+            SetupPlayerStatus();
+        }; 
+    }
+
+    private void SetupPlayerStatus()
+    {
+        var global = GetNode<GameData>("/root/GameData");
+        global.FinalScore = Score;
+        global.FinalTime = $"{currentMin:D2}:{currentSeg:D2}";
     }
 
     //spawn de inimigos, 3 diferentes grupos que spawnam respeitando o timer

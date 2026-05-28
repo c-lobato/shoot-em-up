@@ -18,6 +18,7 @@ config/icon="uid://dka2v436gft38"
 [autoload]
 
 Background="*res://scenes/game/Background.tscn"
+GameData="*res://scripts/game/GameData.cs"
 
 [display]
 
