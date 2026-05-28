@@ -8,7 +8,7 @@ public partial class ShootingEnemy : Enemy
     [Export] public Timer ShootingCooldown;
     [Export] public PackedScene enemy_projectile;
     [Export] public float Frequency = 5.0f; 
-    [Export] public float Amplitude = 300.0f;
+    [Export] public float Amplitude = 330.0f;
 
     public override void _Ready()
     {

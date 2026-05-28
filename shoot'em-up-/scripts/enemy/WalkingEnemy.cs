@@ -11,7 +11,6 @@ public partial class WalkingEnemy : Enemy
        MoveAndSlide();
     }
 
-    
     public override void Attack(){}
 
 }

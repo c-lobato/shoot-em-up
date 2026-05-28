@@ -3,7 +3,7 @@ using System;
 
 public abstract partial class Enemy : CharacterBody2D
 {
-    [Export] protected int Speed;
+    [Export] public int Speed;
     [Export] protected int Health;
     [Export] public int Points;
     [Export] public Sprite2D Sprite;

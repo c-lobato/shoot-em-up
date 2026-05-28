@@ -66,9 +66,6 @@ public partial class GameController : Node
                 newSpawnTime = 1.5f;
             }
 
-            //velocidade dos inimigos
-                
-
             _spawnTimer.WaitTime = newSpawnTime;
 
             //velocidade do parallax global
