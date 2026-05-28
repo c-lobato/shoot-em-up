@@ -10,11 +10,11 @@ public partial class Player : CharacterBody2D
     [Export] public Sprite2D Sprite;
     [Export] public Area2D Hitbox;
     [Export] public Timer iFrameTimer;
-    
+    [Export] public AnimatedSprite2D Anim;
+    [Signal] public delegate void OnPlayerDiedEventHandler();
 
     private bool isDead = false;
     private bool isInvincible = false;
-    
     private bool canShoot = true;
 
     public override void _Ready()
@@ -28,6 +28,11 @@ public partial class Player : CharacterBody2D
     public override void _PhysicsProcess(double delta)
     {
         if (isDead == true) return;
+
+        if (Health == 0)
+        {
+            PlayerDeath();
+        }
 
         HandleMovement();
         HandleShooting();
@@ -43,18 +48,29 @@ public partial class Player : CharacterBody2D
     {
         if (body is Enemy && !isInvincible)
         {
-            isInvincible = true;
-            iFrameTimer.Start();
-
             TakeDamage();
-
             ((Enemy)body).Die();
         }
+        
     }
 
     public void TakeDamage()
     {
+        //toma 1 de dano
         Health -=1;
+        //inicia o iframe 
+        isInvincible = true;
+        iFrameTimer.Start(); 
+    }
+
+    public void PlayerDeath()
+    {
+       if (isDead) return;
+       isDead = true;
+       Speed = 0;
+       Sprite.Visible = false;
+       Anim.Play("death");
+       Anim.AnimationFinished += () => {if(Anim.Animation == "death") EmitSignal(SignalName.OnPlayerDied);};
     }
 
     public void HandleMovement()

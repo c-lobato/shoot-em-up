@@ -21,7 +21,7 @@ size = Vector2(1172.5, 63)
 [sub_resource type="LabelSettings" id="LabelSettings_1lgw5"]
 font_size = 25
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("PlayerLabel", "player", "Audio", "Background")]
+[node name="World" type="Node2D" node_paths=PackedStringArray("PlayerLabel", "player", "Audio")]
 position = Vector2(-1, 1)
 script = ExtResource("1_hlk0d")
 WalkingEnemy = ExtResource("4_d1c63")
@@ -29,7 +29,6 @@ ShootingEnemy = ExtResource("5_1lgw5")
 PlayerLabel = NodePath("HudLabel")
 player = NodePath("Player")
 Audio = NodePath("AudioStreamPlayer2D")
-Background = NodePath("")
 
 [node name="Player" parent="." instance=ExtResource("1_kqs1s")]
 position = Vector2(150, 324)

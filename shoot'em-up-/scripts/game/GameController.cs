@@ -10,6 +10,7 @@ public partial class GameController : Node
     [Export] public Label PlayerLabel;
     [Export] public Player player;
     [Export] public AudioStreamPlayer2D Audio;
+    [Export] public Timer GameOverScreenTimer;
 
     private Timer _spawnTimer;
     public int Score = 0;
@@ -28,6 +29,9 @@ public partial class GameController : Node
         _spawnTimer.Timeout += OnSpawnTimerTimeout;
         _spawnTimer.Start();
         Audio.Play();
+
+        //verificação do sinal de morte do jogador
+        player.OnPlayerDied += StopGame;
         
         //reset de velocidade do parallax 
         Parallax2D background = GetTree().Root.GetNode<Parallax2D>("Background");
@@ -52,13 +56,12 @@ public partial class GameController : Node
         if (currentCicle > currentMin && currentCicle < 6)
         {
             currentMin = currentCicle;
-            double newSpawnTime = _spawnTimer.WaitTime - 0.5f;
+            double newSpawnTime = _spawnTimer.WaitTime - 0.2f;
+            
             if(newSpawnTime < 0.5f)
             {
                 newSpawnTime = 0.5f;
             }
-
-            //ShootingEnemy.Speed
 
             _spawnTimer.WaitTime = newSpawnTime;
 
@@ -83,6 +86,15 @@ public partial class GameController : Node
         }
 
         PlayerLabel.Text = $"HP: {player.Health}\nTime: {min:D2}:{seg:D2}\nScore: {Score}\nSpawn Time:{_spawnTimer.WaitTime}";  
+    }
+
+    private void StopGame()
+    {   
+        Audio.Stop();
+        GetTree().Paused = true;
+        GameOverScreenTimer.Start();
+        //if(GameOverScreenTimer == )
+
     }
 
     //spawn de inimigos, 3 diferentes grupos que spawnam respeitando o timer

@@ -1,8 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjtgennn0bvnn"]
+[gd_scene load_steps=15 format=3 uid="uid://cjtgennn0bvnn"]
 
 [ext_resource type="Script" uid="uid://dc1iudyfblcxk" path="res://scripts/player/Player.cs" id="1_p0vlq"]
 [ext_resource type="PackedScene" uid="uid://cbwbxuukyig5l" path="res://scenes/player/projectile.tscn" id="2_4kuee"]
 [ext_resource type="Texture2D" uid="uid://dka2v436gft38" path="res://assets/sprites/player/player.png" id="2_v6fml"]
+[ext_resource type="Texture2D" uid="uid://bxdwcy564fucl" path="res://assets/sprites/enemys/explosion/explosion-f1.png" id="4_5stf6"]
+[ext_resource type="Texture2D" uid="uid://d08w27vtbkbu7" path="res://assets/sprites/enemys/explosion/explosion-f2.png" id="5_180ig"]
+[ext_resource type="Texture2D" uid="uid://d16lyknrf4r8" path="res://assets/sprites/enemys/explosion/explosion-f3.png" id="6_20koh"]
+[ext_resource type="Texture2D" uid="uid://c3epupft4g2md" path="res://assets/sprites/enemys/explosion/explosion-f4.png" id="7_ov1oi"]
+[ext_resource type="Texture2D" uid="uid://bmbbkyybuyv7q" path="res://assets/sprites/enemys/explosion/explosion-f5.png" id="8_rn7t0"]
+[ext_resource type="Texture2D" uid="uid://cbq2j1wl3kng8" path="res://assets/sprites/enemys/explosion/explosion-f6.png" id="9_8qjgm"]
+[ext_resource type="Texture2D" uid="uid://dvqnrtwu0c71h" path="res://assets/sprites/enemys/explosion/explosion-f7.png" id="10_ejd4k"]
+[ext_resource type="Texture2D" uid="uid://dlrxarepddgvu" path="res://assets/sprites/enemys/explosion/explosion-f8.png" id="11_2xrq6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5q5h1"]
 size = Vector2(14.555555, 16.333334)
@@ -10,16 +18,49 @@ size = Vector2(14.555555, 16.333334)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gfjak"]
 size = Vector2(28.5, 32)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "Hitbox", "iFrameTimer")]
+[sub_resource type="SpriteFrames" id="SpriteFrames_pi3ps"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_5stf6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_180ig")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_20koh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ov1oi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rn7t0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_8qjgm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ejd4k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_2xrq6")
+}],
+"loop": false,
+"name": &"death",
+"speed": 16.0
+}]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "Hitbox", "iFrameTimer", "Anim")]
 scale = Vector2(2, 2)
 collision_mask = 2
 script = ExtResource("1_p0vlq")
-Speed = 300
+Speed = 330
 Health = 3
 projectile = ExtResource("2_4kuee")
 Sprite = NodePath("Sprite2D")
 Hitbox = NodePath("Hitbox")
 iFrameTimer = NodePath("iFrameTimer")
+Anim = NodePath("Explosao")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5000005, -0.16666524)
@@ -42,3 +83,8 @@ shape = SubResource("RectangleShape2D_gfjak")
 
 [node name="iFrameTimer" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="Explosao" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_pi3ps")
+animation = &"death"

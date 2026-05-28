@@ -7,6 +7,21 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rvm7w"]
 
+[sub_resource type="Animation" id="Animation_tq6wr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_b8v74")]
+}
+
 [sub_resource type="Animation" id="Animation_rvm7w"]
 resource_name = "enemy_projectile"
 length = 0.75
@@ -24,29 +39,16 @@ tracks/0/keys = {
 "values": [ExtResource("1_b8v74"), ExtResource("2_c7shd"), ExtResource("3_bg4ap"), ExtResource("3_bg4ap")]
 }
 
-[sub_resource type="Animation" id="Animation_tq6wr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_b8v74")]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_avmsn"]
 _data = {
 &"RESET": SubResource("Animation_tq6wr"),
 &"enemy_projectile": SubResource("Animation_rvm7w")
 }
 
-[node name="EnemyProjectile" type="Area2D"]
+[node name="EnemyProjectile" type="Area2D" node_paths=PackedStringArray("Anim")]
+collision_layer = 8
 script = ExtResource("1_c7shd")
+Anim = NodePath("Sprite2D/AnimationPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rvm7w")
@@ -60,3 +62,5 @@ texture = ExtResource("1_b8v74")
 libraries = {
 &"": SubResource("AnimationLibrary_avmsn")
 }
+
+[connection signal="body_entered" from="." to="." method="OnEnemyProjectileHitPlayer"]
