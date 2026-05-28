@@ -6,7 +6,7 @@ public partial class GameController : Node
 {
     [Export] public PackedScene WalkingEnemy;
     [Export] public PackedScene ShootingEnemy;
-    [Export] public float SpawnInterval = 3.0f;
+    [Export] public float SpawnInterval = 4.0f;
     [Export] public Label PlayerLabel;
     [Export] public Player player;
     [Export] public AudioStreamPlayer2D Audio;
@@ -14,13 +14,15 @@ public partial class GameController : Node
     public int Score = 0;
     private float _screenWidth = 1152.0f;
     private float _screenHeight = 648.0f;
+    private int lastCycle = 0;
     private float timePassed = 0f;
-    private float currentMin = 0f;
-    private float currentSeg = 0f;
+    private int currentMin = 0;
+    private int currentSeg = 0;
     private bool bossSpawn = false;
     
     public override void _Ready()
     {
+        //configurações da tela de jogo 
         _spawnTimer = new Timer();
         AddChild(_spawnTimer);
         _spawnTimer.WaitTime = SpawnInterval;
@@ -49,18 +51,23 @@ public partial class GameController : Node
         currentMin = Mathf.FloorToInt(timePassed / 60f);
         currentSeg = Mathf.FloorToInt(timePassed % 60f);
 
+        //cria os ciclos de 30 segundos do jogo (cada 30s vai diminuir o tempo de spawn e aumentar a velicidade do bg)
         int currentCicle = Mathf.FloorToInt(timePassed / 30f);
         
-        //Se mudou de ciclo e ainda não chegou no Boss (menos de 6 ciclos = 3 currentMin)       
-        if (currentCicle > currentMin && currentCicle < 6)
+        if (currentCicle > lastCycle)
         {
-            currentMin = currentCicle;
-            double newSpawnTime = _spawnTimer.WaitTime - 0.2f;
+            //salva o ciclo de 30 segundos do jogo
+            lastCycle = currentCicle;
+            double newSpawnTime = _spawnTimer.WaitTime - 0.3f;
             
-            if(newSpawnTime < 0.5f)
+            //verificação de segurança (o spawn dos inimigos não podem passar de 3 s de intervalo)
+            if(newSpawnTime <= 1.5f)
             {
-                newSpawnTime = 0.5f;
+                newSpawnTime = 1.5f;
             }
+
+            //velocidade dos inimigos
+                
 
             _spawnTimer.WaitTime = newSpawnTime;
 
@@ -68,29 +75,25 @@ public partial class GameController : Node
             Parallax2D background = GetTree().Root.GetNode<Parallax2D>("Background");
             if(background != null)
             {
-                //adiciona 30frames na contagem, pra uma sensação de aumento de velocidade
+                //adiciona 30 frames na contagem, pra uma sensação de aumento de velocidade
                 float velX = background.Autoscroll.X - 30f;
+                //limite de velocidade do parallax 
+                if (velX <= -200f)
+                {
+                    velX = -200f;
+                }
                 background.Autoscroll = new Godot.Vector2(velX, background.Autoscroll.Y);
+
             }
 
             GD.Print($"novo timer: {_spawnTimer}");
         }
-
-        if (timePassed >= 180f && !bossSpawn)
-        {
-            bossSpawn = true;
-            _spawnTimer.Stop();
-
-            //SpawnBoss();
-        }
-
-        PlayerLabel.Text = $"HP: {player.Health}\nTime: {currentMin:D2}:{currentSeg:D2}\nScore: {Score}\nSpawn Time:{_spawnTimer.WaitTime}";  
+        PlayerLabel.Text = $"HP: {player.Health}\nTime: {currentMin:D2}:{currentSeg:D2}\nScore: {Score}";
     }
-
 
     private void GameOver()
     {   
-        //para a musica
+        //para a musica e o spawn de inimigos
         Audio.Stop();
         _spawnTimer.Stop();
         
@@ -105,8 +108,8 @@ public partial class GameController : Node
         delayTimer.Timeout += () =>
         {
             GD.Print("explosao acabou, chamando a tela game over");
-            GetTree().ChangeSceneToFile("res://scenes/game/GameOverScreen.tscn");
             SetupPlayerStatus();
+            GetTree().ChangeSceneToFile("res://scenes/game/GameOverScreen.tscn");
         }; 
     }
 
@@ -131,8 +134,8 @@ public partial class GameController : Node
             //escolhe se vai ser um grupo de 4 ou 5 inimigos
             int enemyGroup = (int)GD.RandRange(4,5);
             //limites de spawn dentro da tela (superior / inferior) para evitar cortar as naves
-            float supLimit = 50f;
-            float infLimit = 600f;
+            float supLimit = 35f;
+            float infLimit = 610f;
             float totalHeight = infLimit-supLimit;
 
             for (int i=0; i<enemyGroup; i++)
@@ -152,7 +155,7 @@ public partial class GameController : Node
         {
             int enemyGroup = (int)GD.RandRange(2,3);
 
-            float supLimit = 50f;
+            float supLimit =40f;
             float infLimit = 400f;
             float totalHeight = infLimit-supLimit;
 

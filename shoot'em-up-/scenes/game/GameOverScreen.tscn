@@ -114,8 +114,9 @@ offset_right = 471.0
 offset_bottom = 78.625
 grow_horizontal = 2
 grow_vertical = 2
-text = "asdasdsaasd    asdsadasdasdasd     adsdasdasdasdasdasd"
 label_settings = SubResource("LabelSettings_4dhoq")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_8h2eo")

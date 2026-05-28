@@ -32,8 +32,8 @@ public partial class ShootingEnemy : Enemy
         //verificação de morte
         if(Health == 0)
         {
-            Amplitude = 0;
-                Die();
+            Amplitude = 0; //para zerar o movimento senoidal do inimigo
+            Die();
         }
     }
 
@@ -42,6 +42,6 @@ public partial class ShootingEnemy : Enemy
         //INSTANCIA UM ENEMYPROJECTILE, DA MESMA FORMA QUE O PLAYER INSTANCIA O TIRO DELE
         EnemyProjectile new_projectile = enemy_projectile.Instantiate<EnemyProjectile>();
         new_projectile.GlobalPosition = GlobalPosition;
-        GetTree().Root.AddChild(new_projectile);
+        GetTree().CurrentScene.AddChild(new_projectile);
     }
 }

@@ -106,7 +106,7 @@ public partial class Player : CharacterBody2D
         {
             Projectile new_projectile = projectile.Instantiate<Projectile>();
             new_projectile.GlobalPosition = GlobalPosition;
-            GetTree().Root.AddChild(new_projectile);
+            GetTree().CurrentScene.AddChild(new_projectile);
         }
     }
 

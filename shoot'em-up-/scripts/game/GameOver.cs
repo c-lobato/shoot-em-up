@@ -12,11 +12,17 @@ public partial class GameOver : Control
     public override void _Ready()
     {
         Audio.Play();
+        ConfigureStatusLabel();
 
         if(Restart != null) Restart.Pressed += OnRestartButtonPressed;
         if(Menu != null) Menu.Pressed += OnMenuButtonPressed;
         if(Quit != null) Quit.Pressed += OnQuitButtonPressed;
-        
+    }
+
+    private void ConfigureStatusLabel()
+    {
+        var global = GetNode<GameData>("/root/GameData");
+        PlayerInfo.Text = $"TIME: {global.FinalTime}      SCORE: {global.FinalScore}";
     }
 
     private void OnRestartButtonPressed()
