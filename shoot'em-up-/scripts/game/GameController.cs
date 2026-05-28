@@ -10,8 +10,6 @@ public partial class GameController : Node
     [Export] public Label PlayerLabel;
     [Export] public Player player;
     [Export] public AudioStreamPlayer2D Audio;
-    [Export] public Timer GameOverScreenTimer;
-
     private Timer _spawnTimer;
     public int Score = 0;
     private float _screenWidth = 1152.0f;
@@ -31,7 +29,7 @@ public partial class GameController : Node
         Audio.Play();
 
         //verificação do sinal de morte do jogador
-        player.OnPlayerDied += StopGame;
+        player.OnPlayerDied += GameOver;
         
         //reset de velocidade do parallax 
         Parallax2D background = GetTree().Root.GetNode<Parallax2D>("Background");
@@ -88,13 +86,25 @@ public partial class GameController : Node
         PlayerLabel.Text = $"HP: {player.Health}\nTime: {min:D2}:{seg:D2}\nScore: {Score}\nSpawn Time:{_spawnTimer.WaitTime}";  
     }
 
-    private void StopGame()
-    {   
-        Audio.Stop();
-        GetTree().Paused = true;
-        GameOverScreenTimer.Start();
-        //if(GameOverScreenTimer == )
 
+    private void GameOver()
+    {   
+        //para a musica
+        Audio.Stop();
+        _spawnTimer.Stop();
+        //pausa o jogo
+        GetTree().Paused = true;
+
+        //timer de espera da animação do jogador e chamada da tela de game over (estilo mario)
+        var delayTimer = GetTree().CreateTimer(1.5f,true,true);
+        delayTimer.Timeout += () =>
+        {
+            GD.Print("explosao acabou, chamando a tela game over");
+            GetTree().Paused = false;
+            GetTree().ChangeSceneToFile("res://scenes/game/GameOverScreen.tscn");
+        };
+        
+        
     }
 
     //spawn de inimigos, 3 diferentes grupos que spawnam respeitando o timer

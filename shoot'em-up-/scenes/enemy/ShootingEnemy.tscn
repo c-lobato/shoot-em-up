@@ -48,7 +48,7 @@ animations = [{
 "speed": 16.0
 }]
 
-[node name="ShootingEnemy" type="CharacterBody2D" node_paths=PackedStringArray("ShootingCooldown", "Sprite", "Hitbox", "Explosion", "Audio")]
+[node name="ShootingEnemy" type="CharacterBody2D" node_paths=PackedStringArray("ShootingCooldown", "Sprite", "Hitbox", "Explosion", "Audio") groups=["enemys"]]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_tbobv")

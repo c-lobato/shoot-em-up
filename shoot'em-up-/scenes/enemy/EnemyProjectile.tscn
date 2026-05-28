@@ -45,7 +45,7 @@ _data = {
 &"enemy_projectile": SubResource("Animation_rvm7w")
 }
 
-[node name="EnemyProjectile" type="Area2D" node_paths=PackedStringArray("Anim")]
+[node name="EnemyProjectile" type="Area2D" node_paths=PackedStringArray("Anim") groups=["enemys"]]
 collision_layer = 8
 script = ExtResource("1_c7shd")
 Anim = NodePath("Sprite2D/AnimationPlayer")

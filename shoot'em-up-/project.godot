@@ -17,7 +17,7 @@ config/icon="uid://dka2v436gft38"
 
 [autoload]
 
-Background="*res://scenes/Background.tscn"
+Background="*res://scenes/game/Background.tscn"
 
 [display]
 

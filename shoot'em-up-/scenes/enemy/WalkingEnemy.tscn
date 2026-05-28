@@ -47,7 +47,7 @@ animations = [{
 "speed": 16.0
 }]
 
-[node name="WalkingEnemy" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "Hitbox", "Explosion", "Audio")]
+[node name="WalkingEnemy" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "Hitbox", "Explosion", "Audio") groups=["enemys"]]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_exij2")

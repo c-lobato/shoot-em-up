@@ -29,9 +29,11 @@ public partial class Player : CharacterBody2D
     {
         if (isDead == true) return;
 
-        if (Health == 0)
+        //verificação de morte do player caso esteja vivo + lançamento do sinal OnPlayerHitFatal do controlador
+        if (Health <= 0 && !isDead)
         {
             PlayerDeath();
+            return;
         }
 
         HandleMovement();
@@ -44,6 +46,7 @@ public partial class Player : CharacterBody2D
 
     }
 
+    //dano de colisao direta com outra nave
     private void OnHitboxBodyEntered(Node2D body)
     {
         if (body is Enemy && !isInvincible)
@@ -54,6 +57,7 @@ public partial class Player : CharacterBody2D
         
     }
 
+    //metodo de dano do player
     public void TakeDamage()
     {
         //toma 1 de dano
@@ -63,14 +67,26 @@ public partial class Player : CharacterBody2D
         iFrameTimer.Start(); 
     }
 
+    //morte do player + sinal de morte (OnPlayerDied)
     public void PlayerDeath()
     {
        if (isDead) return;
        isDead = true;
        Speed = 0;
        Sprite.Visible = false;
-       Anim.Play("death");
-       Anim.AnimationFinished += () => {if(Anim.Animation == "death") EmitSignal(SignalName.OnPlayerDied);};
+
+        //alterando o process mode do player e seus filhos
+       this.ProcessMode = ProcessModeEnum.Always;
+
+        //toca a animação
+       if(Anim != null)
+        {
+            Anim.Frame = 0;
+            Anim.Play("death");
+        }
+
+       //sinal de morte
+       EmitSignal(SignalName.OnPlayerDied);
     }
 
     public void HandleMovement()

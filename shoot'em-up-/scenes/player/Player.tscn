@@ -47,12 +47,14 @@ animations = [{
 }],
 "loop": false,
 "name": &"death",
-"speed": 16.0
+"speed": 8.0
 }]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "Hitbox", "iFrameTimer", "Anim")]
+process_mode = 3
 scale = Vector2(2, 2)
 collision_mask = 2
+motion_mode = 1
 script = ExtResource("1_p0vlq")
 Speed = 330
 Health = 3
@@ -85,6 +87,8 @@ shape = SubResource("RectangleShape2D_gfjak")
 wait_time = 2.0
 
 [node name="Explosao" type="AnimatedSprite2D" parent="."]
+process_mode = 3
 visible = false
 sprite_frames = SubResource("SpriteFrames_pi3ps")
 animation = &"death"
+autoplay = "death"

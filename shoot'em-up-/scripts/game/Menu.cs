@@ -40,7 +40,7 @@ public partial class Menu : Control
         if (name == "start_transition")
         {
             //troca para a cena do jogo de fato
-            GetTree().ChangeSceneToFile("res://scenes/World.tscn");
+            GetTree().ChangeSceneToFile("res://scenes/game/World.tscn");
         }
     }
 
